@@ -62,7 +62,7 @@ const App: React.FC = () => {
     <Container>
       <Row>
         <Col>
-          <Navbar bg="light" expand="lg">
+          <Navbar variant="dark" expand="lg">
             <Navbar.Brand href="/">Bookworm</Navbar.Brand>
             <Navbar.Toggle />
             <Navbar.Collapse id="basic-navbar-nav">
