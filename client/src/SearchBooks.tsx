@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTransition, animated } from "react-spring";
 import axios from "axios";
 
 import { Form, Button, Card } from "./bootstrap";
@@ -40,9 +41,15 @@ const SearchBooks = ({ savedBooks, saveBook, deleteBook }: any) => {
       false
     );
 
+  const transitions = useTransition(!loading && searchPerformed, null, {
+    from: { transform: "translate3d(0,1500px,0)" },
+    enter: { transform: "translate3d(0,0px,0)" },
+    leave: { transform: "translate3d(0,1500px,0)" }
+  });
+
   return (
     <>
-      <Card bg="light" className="mb-5">
+      <Card bg="light" className="mb-3">
         <Card.Body>
           <Form>
             <Form.Group controlId="book">
@@ -64,24 +71,31 @@ const SearchBooks = ({ savedBooks, saveBook, deleteBook }: any) => {
           </Form>
         </Card.Body>
       </Card>
-      <Loading show={loading} variant="search" />
-      {searchPerformed && !loading && results.length === 0 && <h4>No results.</h4>}
-      {results.length > 0 && !loading && (
-        <Card bg="light">
-          <Card.Header className="text-muted">Results</Card.Header>
-          <Card.Body>
-            {results.map((book: any) => (
-              <Book
-                key={book.id}
-                className="mb-4"
-                book={book}
-                isSaved={isSaved(book)}
-                saveBook={saveBook}
-                deleteBook={deleteBook}
-              />
-            ))}
-          </Card.Body>
-        </Card>
+      <Loading className="mt-5" show={loading} variant="search" />
+      {transitions.map(({ item, key, props }) =>
+        item ? (
+          <animated.div style={props}>
+            <Card bg="light">
+              <Card.Header className="text-muted">Results</Card.Header>
+              <Card.Body>
+                {results.map((book: any) => (
+                  <Book
+                    key={book.id}
+                    className="mb-4"
+                    book={book}
+                    isSaved={isSaved(book)}
+                    saveBook={saveBook}
+                    deleteBook={deleteBook}
+                  />
+                ))}
+              </Card.Body>
+            </Card>
+          </animated.div>
+        ) : (
+          searchPerformed &&
+          !loading &&
+          results.length === 0 && <h4>No Results</h4>
+        )
       )}
     </>
   );

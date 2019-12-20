@@ -23,16 +23,26 @@ const Book = ({ book, className, isSaved, saveBook, deleteBook }: any) => {
   return (
     <Card className={className}>
       <Card.Header>
-        {isSaved && <Button variant="danger" className="float-right" onClick={deleteClick}>
-          {!loading && <Octicon icon={X} />}
-          <Loading variant="save" show={loading} />
-        </Button>}
-        {!isSaved && saveBook && <Button variant="info" className="float-right" onClick={saveClick}>
-          { !loading && <>Save
-          <Octicon className="ml-2" icon={Bookmark} />
-          </>}
-          <Loading variant="save" show={loading} />
-        </Button>}
+        {isSaved && (
+          <Button
+            variant="danger"
+            className="float-right"
+            onClick={deleteClick}>
+            {!loading && <Octicon icon={X} />}
+            <Loading variant="save" show={loading} />
+          </Button>
+        )}
+        {!isSaved && saveBook && (
+          <Button variant="info" className="float-right" onClick={saveClick}>
+            {!loading && (
+              <>
+                Save
+                <Octicon className="ml-2" icon={Bookmark} />
+              </>
+            )}
+            <Loading variant="save" show={loading} />
+          </Button>
+        )}
         {link && (
           <Button
             variant="info"
@@ -51,11 +61,17 @@ const Book = ({ book, className, isSaved, saveBook, deleteBook }: any) => {
         <Container>
           <Row>
             {image && (
-              <Col xs={3} className="text-center">
+              <Col md={3} className="text-center mb-3">
                 <Image src={image} />
               </Col>
             )}
-            <Col>{description || <h5>No description.</h5>}</Col>
+            <Col>
+              {description || (
+                <div className="text-center">
+                  <h6>No description.</h6>
+                </div>
+              )}
+            </Col>
           </Row>
         </Container>
       </Card.Body>

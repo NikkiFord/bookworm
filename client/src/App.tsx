@@ -31,7 +31,7 @@ const App: React.FC = () => {
       await axios.post("/api/book", { book });
       setSavedBooks([...savedBooks, book]);
     } catch (err) {
-      alert(err.response.data);
+      console.log(err);
     }
   };
 
@@ -40,7 +40,7 @@ const App: React.FC = () => {
       await axios.delete(`/api/book/${id}`);
       setSavedBooks(savedBooks.filter((savedBook) => savedBook.id !== id));
     } catch (err) {
-      alert(err.response.data);
+      console.log(err);
     }
   };
 
