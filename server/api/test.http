@@ -1,0 +1,20 @@
+@root=http://localhost:3001/api
+###
+GET {{root}}/search-books?q=Hitchhikers%20Guide
+###
+GET {{root}}/books
+###
+POST {{root}}/book
+Content-Type: application/json
+
+{
+  "book": {
+    "authors": ["foo", "bar"],
+    "description": "buzz buzz I'm a bee",
+    "image": "http://somwhere.com/image.jpg",
+    "link": "http://nikkiscorner.com",
+    "title": "I am a test title woohoo!"
+  }
+}
+###
+DELETE {{root}}/book/5dfbecfe5f295043e5a19842
