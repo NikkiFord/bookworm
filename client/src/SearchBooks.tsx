@@ -10,15 +10,22 @@ const SearchBooks = ({ savedBooks, saveBook, deleteBook }: any) => {
   const [results, setResults] = useState([]);
   const [query, setQuery] = useState();
   const [loading, setLoading] = useState(false);
+  const [searchPerformed, setSearchPerformed] = useState(false);
 
-  const searchBooks = async () => {
+  const searchBooks = async (e: any) => {
     try {
+      e.preventDefault();
+      if (!query) return;
+      if (!searchPerformed) {
+        setSearchPerformed(true);
+      }
       setLoading(true);
       const { data } = await axios.get("/api/search-books", {
         params: {
           q: query
         }
       });
+      await new Promise((resolve) => setTimeout(resolve, 2500));
       setLoading(false);
       setResults(data);
     } catch (err) {
@@ -35,7 +42,7 @@ const SearchBooks = ({ savedBooks, saveBook, deleteBook }: any) => {
 
   return (
     <>
-      <Card bg="light" style={{ marginBottom: "25px" }}>
+      <Card bg="light" className="mb-5">
         <Card.Body>
           <Form>
             <Form.Group controlId="book">
@@ -44,11 +51,12 @@ const SearchBooks = ({ savedBooks, saveBook, deleteBook }: any) => {
                 type="text"
                 placeholder="Enter a book title"
                 onChange={(e: any) => setQuery(e.target.value)}
+                onSubmit={searchBooks}
               />
             </Form.Group>
             <Button
               variant="info"
-              type="button"
+              type="submit"
               className="float-right"
               onClick={searchBooks}>
               Search <Octicon className="ml-2" icon={Search} />
@@ -57,6 +65,7 @@ const SearchBooks = ({ savedBooks, saveBook, deleteBook }: any) => {
         </Card.Body>
       </Card>
       <Loading show={loading} variant="search" />
+      {searchPerformed && !loading && results.length === 0 && <h4>No results.</h4>}
       {results.length > 0 && !loading && (
         <Card bg="light">
           <Card.Header className="text-muted">Results</Card.Header>
