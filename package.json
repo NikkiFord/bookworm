@@ -10,7 +10,7 @@
     "dev": "run-p -r dev:server dev:client",
     "dev:server": "cd ./server && npm start",
     "dev:client": "wait-on tcp:3001 && cd ./client && npm start",
-    "build": "run-p build:server build:client",
+    "build": "rm -rf ./build && run-p build:server build:client",
     "build:server": "cd ./server && npm run build && mv ./build ../build && cp ./package.build.json ../build/package.json && cd ../build && npm install",
     "build:client": "cd ./client && npm run build && mv ./build ../build/client"
   },

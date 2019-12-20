@@ -44,6 +44,9 @@ const App: React.FC = () => {
     }
   };
 
+  const route = useRoutes(routes) || routes["/search"]();
+  const pageContent = route(savedBooks, saveBook, deleteBook);
+
   useEffect(() => {
     (async () => {
       try {
@@ -80,7 +83,7 @@ const App: React.FC = () => {
         </Col>
       </Row>
       <Row>
-        <Col>{useRoutes(routes)(savedBooks, saveBook, deleteBook)}</Col>
+        <Col>{pageContent}</Col>
       </Row>
     </Container>
   );
