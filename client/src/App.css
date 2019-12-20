@@ -1,3 +1,7 @@
+body {
+  background-image: url(./background.jpg);
+}
+
 .sk-folding-cube {
   margin: 20px auto;
   width: 100px;
