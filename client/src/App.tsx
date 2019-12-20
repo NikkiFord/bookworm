@@ -67,8 +67,8 @@ const App: React.FC = () => {
             <Navbar.Toggle />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="mr-auto">
-                <Nav.Link onClick={() => navigate("/search")}>Search</Nav.Link>
-                <Nav.Link onClick={() => navigate("/saved")}>Saved</Nav.Link>
+                <Nav.Link onClick={() => navigate("/search")}>Search for Books</Nav.Link>
+                <Nav.Link onClick={() => navigate("/saved")}>Saved Books</Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Navbar>
